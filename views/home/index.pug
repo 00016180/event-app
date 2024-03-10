@@ -1,1 +1,32 @@
-p some content 
+include ../head.pug
+body
+    .container.mt-5
+        h1.text-white Events List
+        table.table.table-responsive.table-hover
+            thead.text-white 
+                tr
+                    th(scope="col") ID
+                    th(scope="col") Event Name
+                    th(scope="col") Event DateTime
+                    th(scope="col") Location
+                    th(scope="col") Description
+                    th(scope="col") Actions
+            tbody
+                tr.text-white
+                    td 1
+                    td Example Event Name 1
+                    td 2024-02-18 10:00
+                    td Example Venue
+                    td Hello world
+                    td
+                        button.btn.btn-info.btn-sm Edit
+                        button.btn.btn-danger.btn-sm Delete
+                tr.text-white
+                    td 2
+                    td Example Event Name 2
+                    td 2024-02-17 10:00
+                    td Example Venue
+                    td sdafdfdf
+                    td
+                        button.btn.btn-info.btn-sm.mr-2(type="button") Edit
+                        button.btn.btn-danger.btn-sm.ml-2(type="button") Delete

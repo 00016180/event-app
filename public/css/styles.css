@@ -1,0 +1,23 @@
+body{
+    background-color: black;
+}
+
+.table-hover tbody tr:hover td {
+    color: rgb(120, 120, 120);
+}
+
+tbody tr button{
+    margin-right: 10px;
+}
+
+.fa-calendar-alt {
+    margin: 5px 4px;
+}
+
+.btn-info:hover{
+    color: white;
+}
+
+.btn-danger:hover {
+    color: black;
+}
