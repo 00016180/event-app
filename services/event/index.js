@@ -5,6 +5,9 @@ const event_service = {
     getAll() {
         return events;
     },
+    getById(id) {
+        return events.find(e => e.id == id)
+    },    
     create(req, res) {
         let new_id = genRandId(5);
                 
@@ -18,7 +21,13 @@ const event_service = {
         events.push(new_event);
         writeToFile(events);
         return new_event;
+    },
+    delete(id) {
+        const indexEvent = events.findIndex(e => e.id == id);
+        events.splice(indexEvent, 1)  ;  
+        writeToFile(events);
     }
+
 }
 
 async function writeToFile(users) {
@@ -32,7 +41,6 @@ async function writeToFile(users) {
         )
 }
 
-// generate random id inspired by uuid
 function genRandId(count) {
     let result = ''
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
