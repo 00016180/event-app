@@ -6,6 +6,10 @@ body{
     color: rgb(120, 120, 120);
 }
 
+tbody {
+    color: white;
+}
+
 tbody tr button{
     margin-right: 10px;
 }

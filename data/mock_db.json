@@ -1,1 +1,11 @@
-[]
+[
+    {
+        "id": "sdfh2",
+        "event": {    
+            "eventName": "Birthday of Jony",
+            "eventDateTime": "12/02/2024 19:00",
+            "location": "Turkiston Palace",
+            "description": "Birthday party of Jony"
+        }
+    }
+]
