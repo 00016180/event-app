@@ -8,11 +8,11 @@ body
                 input(type="text" class="form-control" id="eventName" name="eventName" required)
             .mb-3
                 label(for="eventDateTime" class="form-label") Event Date/Time
-                    .input-group.date(id="datetimepicker1" data-target-input="nearest")
-                        input(type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" name="eventDateTime" required)
-                        .input-group-append(data-target="#datetimepicker1" data-toggle="datetimepicker")
-                            .input-group-text
-                                i.fas.fa-calendar-alt
+                .input-group.date(id="datetimepicker1" data-target-input="nearest")
+                    input(type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" id="eventDateTime" name="eventDateTime" required)
+                    .input-group-append(data-target="#datetimepicker1" data-toggle="datetimepicker")
+                        .input-group-text
+                            i.fas.fa-calendar-alt
             .mb-3
                 label(for="location" class="form-label") Location
                 input(type="text" class="form-control" id="location" name="location" required)
