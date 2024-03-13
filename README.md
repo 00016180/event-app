@@ -7,7 +7,7 @@ Runing the app locally
 Clone the repository - https://github.com/00016180/event-app.git
 Open project file in VSCode
 Install dependencies by typing 'npm install' in terminal
-Start the app by typing 'npm start' in terminal
+Start the app by typing 'node index.js' in terminal
 Open your browser and navigate to 'http://localhost:3000'
 
 Dependencies' list
