@@ -6,7 +6,7 @@ const event_service = {
         return events;
     },
     getById(id) {
-        return events.find(e => e.id == id)
+        return events.find(e => e.id == id);
     },    
     create(req, res) {
         let new_id = genRandId(5);
@@ -24,10 +24,22 @@ const event_service = {
     },
     delete(id) {
         const indexEvent = events.findIndex(e => e.id == id);
-        events.splice(indexEvent, 1)  ;  
+        events.splice(indexEvent, 1);  
         writeToFile(events);
-    }
+    },
+    update(id, updateData){
+        const indexEvent = events.findIndex(e => e.id == id);
 
+        if (indexEvent === -1) {
+            return null;
+        }
+
+        events[indexEvent].event = { ...events[indexEvent].event, ...updateData };
+
+        writeToFile(events);
+
+        return events[indexEvent];
+    }
 }
 
 async function writeToFile(users) {
@@ -38,17 +50,17 @@ async function writeToFile(users) {
                 users, null, 5
             ),
             'utf8'
-        )
+        );
 }
 
 function genRandId(count) {
-    let result = ''
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-    const charactersLength = characters.length
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
     for (let i = 0; i < count; i++) {
-        result += characters.charAt(Math.floor(Math.random() * charactersLength))
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
-    return result
+    return result;
 }
 
 

@@ -1,33 +1,71 @@
 include ../head.pug
 body
     .container.mt-5
-        h1.text-white Add/Update Event
-        form(action="/submit-event-form" method="POST").text-white
-            .mb-3
-                label(for="eventName" class="form-label") Event Name
-                input(type="text" class="form-control" id="eventName" name="eventName" required)
-            .mb-3
-                label(for="eventDateTime" class="form-label") Event Date/Time
-                .input-group.date(id="datetimepicker1" data-target-input="nearest")
-                    input(type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" id="eventDateTime" name="eventDateTime" required)
-                    .input-group-append(data-target="#datetimepicker1" data-toggle="datetimepicker")
-                        .input-group-text
-                            i.fas.fa-calendar-alt
-            .mb-3
-                label(for="location" class="form-label") Location
-                input(type="text" class="form-control" id="location" name="location" required)
-            .mb-3
-                label(for="description" class="form-label") Description
-                input(type="text" class="form-control" id="description" name="description" required)
-            div.text-center
-                button(type="submit" class="btn btn-info" style="width: 200px").btn-width Add/Edit
+        h1.text-white.text-center #{mode}
+        .mb-3.text-white
+            label(for="eventName" class="form-label") Event Name
+            input(type="text" class="form-control" id="eventName" name="eventName" required)
+        .mb-3.text-white
+            label(for="eventDateTime" class="form-label") Event Date/Time
+            .input-group.date(id="datetimepicker" data-target-input="nearest")
+                input(type="text" class="form-control datetimepicker-input" data-target="#datetimepicker" id="eventDateTime" name="eventDateTime" required)
+                .input-group-append(data-target="#datetimepicker" data-toggle="datetimepicker")
+                    .input-group-text
+                        i.fas.fa-calendar-alt
+        .mb-3.text-white
+            label(for="location" class="form-label") Location
+            input(type="text" class="form-control" id="location" name="location" required)
+        .mb-3.text-white
+            label(for="description" class="form-label") Description
+            input(type="text" class="form-control" id="description" name="description" required)
+        div.text-center
+            button(type="submit" class="btn btn-success" style="width: 200px" onclick="submitForm()") #{mode === 'Update' ? 'Update' : 'Add'}
+            span &nbsp;
+            button(type="submit" class="btn btn-info" style="width: 200px" onclick="window.location.href='/'") Back to list
 
     script.
-        const picker = new tempusDominus.TempusDominus(document.getElementById('datetimepicker1'),{
-            localization: {
-                'locale': 'fr'
-            }
+        const format = 'DD/MM/YYYY HH:mm';
+        const picker = new tempusDominus.TempusDominus(document.getElementById('datetimepicker'),{
+            localization: {'locale': 'eng'}
         });
         picker.dates.formatInput = function(date) {
-            return moment(date).format('DD/MM/YYYY HH:mm')
+            return moment(date).format(format);
         }
+
+        if ("#{mode}" === "Update") {
+            const eventData = !{JSON.stringify(eventData || {})}.event;
+            document.getElementById('eventName').value = eventData.eventName || '';
+
+            picker.dates.setValue(
+                new tempusDominus.DateTime(moment(eventData.eventDateTime, format))
+            );
+
+            document.getElementById('location').value = eventData.location || '';
+            document.getElementById('description').value = eventData.description || '';
+        }
+
+        function submitForm() {
+            const eventData = {
+                eventName: document.getElementById('eventName').value,
+                eventDateTime: document.getElementById('eventDateTime').value,
+                location: document.getElementById('location').value,
+                description: document.getElementById('description').value
+            };
+        
+
+            const url = "#{mode}" === "Update" ? `/api/event/${!{JSON.stringify(eventData || {})}.id}` : '/api/event';
+            const method = "#{mode}" === "Update" ? 'put' : 'post';
+
+            axios[method](url, eventData)
+                .then(response => {
+                    alert('Success!');
+                    location.href = '/';
+                })
+                .catch(error => {
+                    if(error.response)
+                        alert(JSON.stringify(error.response.data.errors));
+                    else
+                        alert(error);
+                });
+        }
+    
